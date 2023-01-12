@@ -12,6 +12,12 @@ class Camp extends Model
 
     protected $fillable = [
         'title',
-        'price'
+        'price',
+        'banner'
     ];
+
+    public function benefit()
+    {
+        return $this->hasMany(CampBenefit::class, 'camps_id', 'id'); //parameter kedua adalah milik model CampBenefit, parameter ketiga adalah milik model Camp
+    }
 }

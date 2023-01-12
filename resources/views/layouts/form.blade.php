@@ -28,8 +28,6 @@
 <!-- AdminLTE App -->
 <script src="{{asset('/')}}dist/js/adminlte.min.js"></script>
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.all.min.js"></script>
 
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 @yield('js')
