@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('user.home');
-// });
+Route::get('/', function () {
+    return view('user.userform');
+});
 
-Route::get('/', 'App\Http\Controllers\UserController@index');
+// Route::get('/', 'App\Http\Controllers\UserController@index');
 
     Route::prefix('camps')->group(function () {
         Route::get('/', 'App\Http\Controllers\CampController@index');
