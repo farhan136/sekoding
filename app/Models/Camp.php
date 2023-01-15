@@ -20,4 +20,9 @@ class Camp extends Model
     {
         return $this->hasMany(CampBenefit::class, 'camps_id', 'id'); //parameter kedua adalah milik model CampBenefit, parameter ketiga adalah milik model Camp
     }
+
+    public function checkoutted()
+    {
+        return $this->hasMany(Checkout::class, 'camp_id', 'id'); //parameter kedua adalah milik model Checkout, parameter ketiga adalah milik model Camp
+    }
 }

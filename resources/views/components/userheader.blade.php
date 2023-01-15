@@ -11,24 +11,19 @@
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
+          <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down"></i></a>
+            @auth
+            <ul style="margin-right: 10px;">
+              <li><img src="{{Auth::user()->photo}}" width="50">{{Auth::user()->name}}</li>
+              <li><a href="{{url('/logout')}}">Logout</a></li>
             </ul>
+            @else
+            <ul style="margin-right: 10px;">
+              <li><a href="{{url('/login')}}">Login</a></li>
+            </ul>
+            @endauth
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li> </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>

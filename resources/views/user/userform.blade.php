@@ -41,7 +41,7 @@
             </form>
 
             <div class="social-auth-links text-center mt-2 mb-3">
-              <a href="#" class="btn btn-block btn-danger">
+              <a href="{{url('/sign-in-google')}}" class="btn btn-block btn-danger">
                 <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
               </a>
             </div>
@@ -51,16 +51,4 @@
     </div>
   </div>
 </div>
-@endsection
-
-@section('js')
-<script>
-   $('#hidetransparant').on('click', function(){
-    if($('#password').attr('type') == 'password'){
-      $('#password').attr('type', 'text')  
-    }else{
-      $('#password').attr('type', 'password')
-    }
-   });
-</script>
 @endsection

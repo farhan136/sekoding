@@ -25,7 +25,19 @@
                   <hr>
                 @endforeach
               </ul>
-              <button class="btn btn-success btn-sm" style="width: 100%;">Join Us</button>
+              @isset($checkoutted)
+                @foreach($checkoutted as $co)
+                  @if($co->camp_id == $camp->id)
+                    <button class="btn btn-secondary btn-sm" style="width: 100%;">See This Camp</button>
+                  @else
+                    <!-- <a class="btn btn-success btn-sm" href="{{url('/camps/checkout/'.$camp->slug)}}" style="width: 100%;">Join Us</a> -->
+                  @endif
+                @endforeach
+              @else
+                <a class="btn btn-success btn-sm" href="{{url('/camps/checkout/'.$camp->slug)}}" style="width: 100%;">Join Us</a>
+              @endisset
+              
+              
             </div>
           </div>
           @endforeach
