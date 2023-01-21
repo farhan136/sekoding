@@ -28,12 +28,13 @@
                 <label>Email address</label>
                 <input type="email" class="form-control" placeholder="Email Address" readonly name="email" value="{{Auth::user()->email}}" autocomplete="off">
               </div><br>
-<!--               <div class="form-group">
-                <input type="email" class="form-control" placeholder="Occupation" name="ocupation" autocomplete="off">
-              </div> -->
               <div class="form-group">
-                <label>Card Number</label>
-                <input type="number" class="form-control" placeholder="Card Number" name="card_number" autocomplete="off">
+                <label>Phone Number</label>
+                <input type="number" class="form-control" placeholder="Phone Number" name="phone_number" autocomplete="off" value="{{old('phone_number') ?: Auth::user()->phone_number}}">
+              </div><br>
+              <div class="form-group">
+                <label>Address</label>
+                <input type="number" class="form-control" placeholder="Address" name="address" autocomplete="off" value="{{old('address') ?: Auth::user()->address}}">
               </div><br>
               <div class="row">
                 <div class="col-12">

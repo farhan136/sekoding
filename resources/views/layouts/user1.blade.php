@@ -28,6 +28,7 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('/')}}assets/css/style.css" rel="stylesheet">
 
+  @yield('css')
   <!-- =======================================================
   * Template Name: BizLand - v3.7.0
   * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
@@ -66,6 +67,8 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('/')}}assets/js/main.js"></script>
+
+  @yield('js')
 
 </body>
 

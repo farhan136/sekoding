@@ -23,7 +23,7 @@
       <h2><b>SEKODING</b></h2>
     </div>
     <div class="card-body">
-      <form action="{{url('/dologin')}}" method="post">
+      <form action="{{url('/do_login_admin')}}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off">
@@ -48,17 +48,8 @@
         </div>
       </form>
 
-      <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+ (Not Ready)
-        </a>
-      </div>
-
       <p class="mb-1">
         <a href="forgot-password.html">I forgot my password (Not Ready)</a>
-      </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership (Not Ready)</a>
       </p>
     </div>
   </div>

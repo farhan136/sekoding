@@ -16,11 +16,11 @@
 
     <div class="sidebar">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{asset('/')}}dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <div class="info">
+          <a href="#" class="d-block">{{Auth::user()->name}}</a>
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="{{url('/logout/1')}}" class="d-block">Logout</a>
         </div>
       </div>
 
@@ -39,6 +39,14 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Camp's Benefit
+              </p>
+            </a>
+          </li>
+          <li class="nav-item <?= $PARENTTAG=='checkout'?'menu-open':'' ?>">
+            <a href="{{url('/checkout')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Checkout List
               </p>
             </a>
           </li>

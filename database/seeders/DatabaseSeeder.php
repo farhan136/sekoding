@@ -4,15 +4,19 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('camp_benefits')->insert([
-            'camps_id' => 3,
-            'name' => 'Akses seumur hidup',
-            'created_at'=>date('Y-m-d H:i:s')
-        ]);
+        // $data = array(
+        //     'name'=>'Farhan Admin',
+        //     'email'=>'farhan@admin.com',
+        //     'password'=>bcrypt('password'),
+        //     'is_admin'=>1
+        // ); 
+
+        // User::create($data);
     }
 }

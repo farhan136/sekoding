@@ -9,6 +9,9 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use App\Models\Checkout;
 use Illuminate\Support\Facades\Auth;
+use Yajra\Datatables\Datatables;
+use Mail;
+Use App\Mail\GeneralMail;
 
 class UserController extends Controller
 {
@@ -18,7 +21,9 @@ class UserController extends Controller
 
         $data['camps'] = $camps;
 
-        $data['checkoutted'] = Auth::user()->checkoutted;
+        if (Auth::check()) {
+            $data['checkoutted'] = Auth::user()->checkoutted;
+        }
 
         return view('user.home', $data);
     }
@@ -45,73 +50,38 @@ class UserController extends Controller
             'is_admin'=>0
         );
 
-        $user = User::firstOrCreate(['email' => $data['email']], $data); //cek di tabel user apakah ada email yang sama dengan $data['email'] jika ada maka tidak perlu buat data baru
+        // $user = User::firstOrCreate(['email' => $data['email']], $data); //cek di tabel user apakah ada email yang sama dengan $data['email'] jika ada maka tidak perlu buat data baru
+
+        $user = User::where('email', '=', $data['email'])->first(); //cek apakah ada user yang memakai email itu atau engga
+        if(!$user){
+            $user = User::create($data);
+            Mail::to($user->email)->send(new GeneralMail($user, 'register'));
+        }
 
         Auth::login($user, true);
 
-        return redirect(url('/home'));
+        return redirect()->intended('/');
     }
 
-    public function logout()
+    public function logout($is_admin = "")
     {
         Auth::logout();
 
-        return redirect(url('/home'));   
+        if($is_admin != ''){
+            return redirect(url('/loginadmin'));
+        }else{
+            return redirect(url('/'));    
+        }
     }
 
-    public function create()
+    public function dashboard()
     {
-        //
-    }
+        $checkoutted = Checkout::where('user_id', Auth::user()->id)->get();
 
-    public function checkout($slug)
-    {
-        $camp = Camp::where('slug', $slug)->first();
+        $data['checkoutted'] = $checkoutted;
 
-        $data['camp'] = $camp;
+        return view('user.my_dashboard', $data);
 
-        return view('user.checkout', $data);
-    }
-
-    public function buy_camp(Request $request, $id)
-    {
-        $data = array(
-            'camp_id' => $id,
-            'user_id' => Auth::user()->id,
-            'card_number'=> $request->card_number,
-            'is_paid'=>1,
-            'cvc'=>'tes',
-            'expired'=>NULL
-
-        );
-
-        $checkout = Checkout::create($data);
-
-        return redirect(url('/camps/success_checkout/'.$id));
-    }
-
-    public function success_checkout($id)
-    {
-        $camp = Camp::find($id);
-
-        $data['camp'] = $camp;
-
-        return view('user.success_checkout', $data);
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
     }
 
     public function destroy($id)

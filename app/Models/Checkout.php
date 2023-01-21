@@ -12,9 +12,17 @@ class Checkout extends Model
     protected $fillable = [
         'user_id',
         'camp_id',
-        'card_number',
-        'expired',
-        'cvc',
-        'is_paid'
+        'payment_status',
+        'midtrans_url'
     ];
+
+    public function camps()
+    {
+        return $this->belongsTo(Camp::class, 'camp_id', 'id'); //parameter kedua adalah milik model Checkout, parameter ketiga adalah milik model Camp
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id'); //parameter kedua adalah milik model Checkout, parameter ketiga adalah milik model User
+    }
 }
