@@ -38,8 +38,6 @@ Route::group(['middleware'=>'guest'], function(){ //yang berada didalam group in
             Route::get('/success_checkout/{id}', 'App\Http\Controllers\CheckoutController@success_checkout');
 
             Route::get('/my_dashboard', 'App\Http\Controllers\UserController@dashboard');
-
-            Route::post('/gridview_checkoutted_user', 'App\Http\Controllers\UserController@gridview_checkoutted_user');
         });
     });
 
@@ -57,6 +55,13 @@ Route::group(['middleware'=>'guest'], function(){ //yang berada didalam group in
         Route::group(['middleware'=>'isadmin:admin', 'middleware'=>'auth'], function(){ //untuk role admin dan yang berada didalam group ini hanya untuk yang sudah login
             Route::get('/', 'App\Http\Controllers\CheckoutController@index');
             Route::post('/gridview', 'App\Http\Controllers\CheckoutController@gridview');
+        });
+    });
+
+    Route::prefix('mentor')->group(function () {
+        Route::group(['middleware'=>'isadmin:admin', 'middleware'=>'auth'], function(){ //untuk role admin dan yang berada didalam group ini hanya untuk yang sudah login
+            Route::get('/', 'App\Http\Controllers\MentorController@index');
+            Route::post('/gridview', 'App\Http\Controllers\MentorController@gridview');
         });
     });
 

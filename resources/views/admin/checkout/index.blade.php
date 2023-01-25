@@ -34,7 +34,6 @@
                           <th style="text-align: center;">Nama Camp</th>
                           <th style="text-align: center;">Harga</th>
                           <th style="text-align: center;">Status</th>
-                          <th style="text-align: center;">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -71,8 +70,7 @@
             {target: 1, data: 'customer_name'},
             {target: 2, data: 'camp_name'},
             {target: 3, data: 'camp_price'},
-            {target: 4, data: 'is_paid'},
-            {target: 5, data: 'checkout_action'}
+            {target: 4, data: 'payment_status'}
         ]
       });
   });

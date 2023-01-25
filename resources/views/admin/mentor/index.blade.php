@@ -32,13 +32,11 @@
                 <tr>
                   <th style="text-align: center;">No</th>
                   <th style="text-align: center;">Nama</th>
-                  <th style="text-align: center;">Harga</th>
-                  <th style="text-align: center;">Banner</th>
+                  <th style="text-align: center;">Photo</th>
                   <th style="text-align: center; width: 10%;">Action</th>
                 </tr>
               </thead>
               <tbody>
-
               </tbody>
             </table>  
           </div>
@@ -50,7 +48,7 @@
 </div>
 @endsection
 
-@section('js')
+<!-- @section('js')
 <script type="text/javascript">
   $(document).ready(function () {
     let t = $('#table_camps').DataTable({
@@ -114,4 +112,4 @@
     $('#table_camps').DataTable().ajax.reload();
   }
 </script>
-@endsection
+@endsection -->

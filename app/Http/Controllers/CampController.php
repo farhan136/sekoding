@@ -14,7 +14,6 @@ class CampController extends Controller
         $data['PARENTTAG'] = "camps";
         $data['TITLETAG'] = "Master Camp";
         return view('admin.camps.index', $data);
-
     }
 
     public function gridview()

@@ -42,6 +42,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item <?= $PARENTTAG=='mentor'?'menu-open':'' ?>">
+            <a href="{{url('/mentor')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Master Mentor
+              </p>
+            </a>
+          </li>
           <li class="nav-item <?= $PARENTTAG=='checkout'?'menu-open':'' ?>">
             <a href="{{url('/checkout')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>

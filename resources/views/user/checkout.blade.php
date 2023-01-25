@@ -34,7 +34,7 @@
               </div><br>
               <div class="form-group">
                 <label>Address</label>
-                <input type="number" class="form-control" placeholder="Address" name="address" autocomplete="off" value="{{old('address') ?: Auth::user()->address}}">
+                <input type="text" class="form-control" placeholder="Address" name="address" autocomplete="off" value="{{old('address') ?: Auth::user()->address}}">
               </div><br>
               <div class="row">
                 <div class="col-12">

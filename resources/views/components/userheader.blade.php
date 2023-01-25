@@ -6,7 +6,7 @@
     
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{{url('/')}}">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
@@ -15,6 +15,7 @@
             @auth
             <ul style="margin-right: 10px;">
               <li><img src="{{Auth::user()->photo}}" width="50">{{Auth::user()->name}}</li>
+              <li><a href="{{url('/camps/my_dashboard')}}" width="50">My Dashboard</a></li>
               <li><a href="{{url('/logout')}}">Logout</a></li>
             </ul>
             @else

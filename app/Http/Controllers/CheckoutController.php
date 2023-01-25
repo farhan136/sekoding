@@ -8,15 +8,18 @@ use App\Models\Checkout;
 use App\Models\Camp;
 use Str;
 use Midtrans;
+use Midtrans\Config;
+use Midtrans\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
     public function __construct()
     {
-        // \Midtrans\Config::$serverkey = env('MIDTRANS_SERVER_KEY');
-        // \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
-        // \Midtrans\Config::$isSantized = env('MIDTRANS_IS_SANITIZED');
-        // \Midtrans\Config::$is3ds = env('MIDTRANS_IS_3DS');
+        \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+        \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
+        \Midtrans\Config::$isSanitized = env('MIDTRANS_IS_SANITIZED');
+        \Midtrans\Config::$is3ds = env('MIDTRANS_IS_3DS');
     }
 
     // menampilkan dashboard checkout
@@ -33,22 +36,20 @@ class CheckoutController extends Controller
         $checkout = Checkout::get();
 
         return Datatables::of($checkout)
-            ->editColumn('is_paid', function ($cout) {
-                if($cout->is_paid == 1){
-                    $textpaid = 'Paid';
+            ->editColumn('payment_status', function ($cout) {
+                if($cout->payment_status == 'Paid'){
+                    $warnabutton = 'success';
                 }else{
-                    $textpaid = 'Not Paid';
+                    $warnabutton = 'primary';
                 }
-                return '<button class="btn btn-warning">'.$textpaid.'</button> ';
+                return '<button class="btn btn-'.$warnabutton.'">'.$cout->payment_status.'</button> ';
             })->addColumn('customer_name', function ($cout) {
                 return $cout->users->name;
             })->addColumn('camp_name', function ($cout) {
                 return $cout->camps->title;
             })->addColumn('camp_price', function ($cout) {
                 return $cout->camps->price;
-            })->addColumn('checkout_action', function ($cout) {
-                return '<button  data-id="'.$cout->id.'" id="tombol_edit" class="btn btn-primary edit_btn">Edit</button>';
-            })->addIndexColumn()->rawColumns(['is_paid','checkout_action'])->make();
+            })->addIndexColumn()->rawColumns(['payment_status'])->make();
     }
     // end
 
@@ -65,6 +66,11 @@ class CheckoutController extends Controller
 
     public function buy_camp(Request $request, $id)
     {
+        $user = Auth::user();
+        $user->phone_number = $request->phone_number;
+        $user->address = $request->address;
+        $user->save();
+
         $data = array(
             'camp_id' => $id,
             'user_id' => Auth::user()->id,
@@ -72,20 +78,20 @@ class CheckoutController extends Controller
             // 'is_paid'=>1,
             // 'cvc'=>'tes',
             // 'expired'=>NULL
-
         );
 
         $checkout = Checkout::create($data);
+        $checkout_id = $checkout->id;
         $this->get_snap_redirect($checkout);
 
-        return redirect(url('/camps/success_checkout/'.$id));
+        return redirect(url('/camps/success_checkout/'.$checkout_id));
     }
 
     public function success_checkout($id)
     {
-        $camp = Camp::find($id);
+        $checkout = Checkout::find($id);
 
-        $data['camp'] = $camp;
+        $data['checkout'] = $checkout;
 
         return view('user.success_checkout', $data);
     }
@@ -96,11 +102,11 @@ class CheckoutController extends Controller
         $orderID = $checkout->id.'-'.Str::random(5);
         $transaction_details = array(
             "order_id"=> $orderID,
-            "gross_amount"=> $checkout->camps->price
+            "gross_amount"=> (int) $checkout->camps->price
         );
         $item_details = array(
             "id"=> $orderID,
-            "price"=> $checkout->camps->price,
+            "price"=> (int) $checkout->camps->price,
             "quantity"=> 1,
             "name"=> "Payment For ".$checkout->camps->title
         );
@@ -144,7 +150,7 @@ class CheckoutController extends Controller
     public function midtrans_callback(Request $request)
     {
         //script ini diambil dari https://gist.github.com/taufanfadhilah
-        $notif = new Midtrans\Notification();
+        $notif = $request->method() == 'POST'? new Midtrans\Notification(): Midtrans\Transaction::status($request->order_id);
 
         $transaction_status = $notif->transaction_status;
         $fraud = $notif->fraud_status;

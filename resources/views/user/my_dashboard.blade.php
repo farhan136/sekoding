@@ -29,10 +29,10 @@
                   <td style="text-align: center;">{{$cout->camps->title}}</td>
                   <td style="text-align: center;">{{$cout->camps->price}}</td>
                   <td style="text-align: center;">
-                    @if($cout->is_paid == 1)
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tutorial">Paid</button>
+                    @if($cout->payment_status == "Waiting")
+                      <a class="btn btn-primary btn-sm" href="{{$cout->midtrans_url}}" data-toggle="modal" data-target="#modal_tutorial">{{$cout->payment_status}}</a>
                     @else
-                      <button class="btn btn-danger btn-sm">Not Paid</button>
+                      <button class="btn btn-warning btn-sm">{{$cout->payment_status}}</button>
                     @endif
                   </td>
                 </tr>
@@ -44,7 +44,7 @@
         <br><br><br>
         <div class="row">
           <div class="col-lg-12" data-aos="fade-right" data-aos-delay="100">
-            <a href="{{url('/')}}" class="btn btn-success btn-block">Move to Home</a>
+            <a href="{{url('/')}}" class="btn btn-primary btn-block">Move to Home</a>
           </div>
         </div>
 
