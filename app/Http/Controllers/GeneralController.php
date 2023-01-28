@@ -42,4 +42,13 @@ class GeneralController extends Controller
         }
         return back();
     }
+
+    // public function tessaja()
+    // {
+    //     echo "tess1"; // run command 1
+    
+    //     sleep(10);
+    
+    //     echo "tess2"; // run command 2
+    // }
 }

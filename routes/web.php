@@ -62,6 +62,9 @@ Route::group(['middleware'=>'guest'], function(){ //yang berada didalam group in
         Route::group(['middleware'=>'isadmin:admin', 'middleware'=>'auth'], function(){ //untuk role admin dan yang berada didalam group ini hanya untuk yang sudah login
             Route::get('/', 'App\Http\Controllers\MentorController@index');
             Route::post('/gridview', 'App\Http\Controllers\MentorController@gridview');
+            Route::get('/create', 'App\Http\Controllers\MentorController@form');
+            Route::post('/store/{id?}', 'App\Http\Controllers\MentorController@store');
+            Route::get('/edit/{id}', 'App\Http\Controllers\MentorController@form');
         });
     });
 
@@ -70,3 +73,7 @@ Route::group(['middleware'=>'guest'], function(){ //yang berada didalam group in
     //midtrans route
     Route::get('/payment/success', 'App\Http\Controllers\CheckoutController@midtrans_callback')->middleware('auth');
     Route::post('/payment/success', 'App\Http\Controllers\CheckoutController@midtrans_callback')->middleware('auth');    
+
+
+
+    Route::get('/tessaja', 'App\Http\Controllers\GeneralController@tessaja');

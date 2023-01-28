@@ -12,14 +12,17 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use Mail;
 Use App\Mail\GeneralMail;
+use App\Models\Mentor;
 
 class UserController extends Controller
 {
     public function index()
     {
         $camps = Camp::get();
+        $mentors = Mentor::get();
 
         $data['camps'] = $camps;
+        $data['mentors'] = $mentors;
 
         if (Auth::check()) {
             $data['checkoutted'] = Auth::user()->checkoutted;

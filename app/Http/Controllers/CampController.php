@@ -61,11 +61,6 @@ class CampController extends Controller
         echo "<script>window.close();</script>";
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit($id)
     {
         $camp = Camp::find($id);

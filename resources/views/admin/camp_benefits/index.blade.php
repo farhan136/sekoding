@@ -94,5 +94,13 @@
   function reloadDatatable() {
     $('#table_camps').DataTable().ajax.reload();
   }
+
+  function run_alert(icon_val, title_val) {
+    if(icon_val == 'success'){
+      toastr.success(title_val)
+    }else if(icon_val == 'info'){
+      toastr.info(title_val)
+    }
+  }
 </script>
 @endsection
